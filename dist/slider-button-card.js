@@ -3945,6 +3945,7 @@ var Domain;
     Domain["COVER"] = "cover";
     Domain["INPUT_BOOLEAN"] = "input_boolean";
     Domain["INPUT_NUMBER"] = "input_number";
+    Domain["NUMBER"] = "number";
     Domain["MEDIA_PLAYER"] = "media_player";
     Domain["CLIMATE"] = "climate";
     Domain["LOCK"] = "lock";
@@ -5958,6 +5959,40 @@ class InputNumberController extends Controller {
     }
 }
 
+class NumberController extends Controller {
+    constructor() {
+        super(...arguments);
+        this._invert = false;
+    }
+    // _min;
+    // _max;
+    get _value() {
+        return this.stateObj.state;
+    }
+    set _value(value) {
+        this._hass.callService('number', 'set_value', {
+            // eslint-disable-next-line @typescript-eslint/camelcase
+            entity_id: this.stateObj.entity_id,
+            value: value,
+        });
+    }
+    get _min() {
+        return this.stateObj.attributes.min;
+    }
+    get _max() {
+        return this.stateObj.attributes.max;
+    }
+    get isValuePercentage() {
+        return false;
+    }
+    get _step() {
+        return this.stateObj.attributes.step;
+    }
+    get label() {
+        return this.stateObj.attributes.unit_of_measurement ? `${this.targetValue} ${this.stateObj.attributes.unit_of_measurement}` : `${this.targetValue}`;
+    }
+}
+
 const HS_INDEX = {
     hue: 0,
     saturation: 1
@@ -6434,6 +6469,7 @@ class ControllerFactory {
             [Domain.COVER]: CoverController,
             [Domain.INPUT_BOOLEAN]: InputBooleanController,
             [Domain.INPUT_NUMBER]: InputNumberController,
+            [Domain.NUMBER]: NumberController,
             [Domain.MEDIA_PLAYER]: MediaController,
             [Domain.CLIMATE]: ClimateController,
             [Domain.LOCK]: LockController,
