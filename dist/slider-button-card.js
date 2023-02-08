@@ -4076,6 +4076,19 @@ const SliderConfigDefaultDomain = new Map([
                 action: 'more-info'
             },
         }],
+    [Domain.NUMBER, {
+            direction: SliderDirections.LEFT_RIGHT,
+            background: SliderBackground.SOLID,
+            use_state_color: false,
+            use_percentage_bg_opacity: false,
+            show_track: false,
+            disable_sliding: false,
+            force_square: false,
+            show_attribute: false,
+            tap_action: {
+                action: 'more-info'
+            },
+        }],
     [Domain.MEDIA_PLAYER, {
             direction: SliderDirections.LEFT_RIGHT,
             background: SliderBackground.TRIANGLE,
